@@ -31,14 +31,6 @@ int main()
     int cantidadGuardados;
     int confirmacion;
 
-    /*
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     *
-     *    DESCOMENTAR LA ID EN EL ADD PASSENGER!!!
-     *
-     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     * */
-
 //Aclaraciones: Utilicé un archivo txt para el case 2 y 9 pero los datos se encuentran de igual forma guardados en modo binario.
 
     LinkedList* listaPasajeros = ll_newLinkedList();

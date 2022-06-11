@@ -174,7 +174,7 @@ int controller_addPassenger(LinkedList* pArrayListPassenger)
 
 		if(this != NULL)
 		{
-//			if(controller_saveLastID("id.txt", &id) == 1)
+			if(controller_saveLastID("id.txt", &id) == 1)
 			{
 				ll_add(pArrayListPassenger, this);
 				retorno = 1;
