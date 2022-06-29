@@ -10,17 +10,11 @@
 #include "Inputs.h"
 #include <string.h>
 #define SIZETIPO 2
-static int idIncremental = 0;
-static int obtenerID();
-static int obtenerID()
-{
-	return idIncremental++;
-}
 
 static TypePassenger listaTiposPasajeros[SIZETIPO] = {{1,"Economico"},{2, "Primera Clase"}};
 
 
-Passenger CargarUnPasajero()
+Passenger PedirDatosPasajero()
 {
 	Passenger unPasajero;
 	Passenger auxiliar;
@@ -105,6 +99,7 @@ int initPassengers(Passenger listaPasajeros[], int tam)
 		for(int i=0; i<tam; i++)
 		{
 			listaPasajeros[i].isEmpty = 1;
+			listaPasajeros[i].id=0;
 			resultado = 0;
 		}
 	}
@@ -131,7 +126,7 @@ int BuscarLibre(Passenger listaPasajeros[], int tam)
 	}
 	return index;
 }
-int addPassenger(Passenger listaPasajeros[], int tam)
+int addPassenger(Passenger listaPasajeros[], int tam, int* id)
 {
 	int index;
 	int retorno = -1;
@@ -142,9 +137,11 @@ int addPassenger(Passenger listaPasajeros[], int tam)
 
 		if(index!=-1)
 		{
-			listaPasajeros[index] = CargarUnPasajero();
-			listaPasajeros[index].id = obtenerID();
+
+			listaPasajeros[index] = PedirDatosPasajero();
+			listaPasajeros[index].id = *id;
 			listaPasajeros[index].isEmpty = 0;
+			*id = *id+1;
 			retorno = 0;
 		}
 
@@ -172,30 +169,29 @@ int findPassengerById(Passenger listaPasajeros[], int tam, int id)
 int removePassenger(Passenger listaPasajeros[], int tam, int id)
 {
 	int retorno = -1;
+	int index;
 	char confirmacion;
 
 	if (listaPasajeros != NULL || tam > 0)
 	{
-		for(int i=0; i<tam; i++)
+		index = findPassengerById(listaPasajeros, tam, id);
+		if(index != -1)//lo encontró.
 		{
-			if(listaPasajeros[i].isEmpty==0 && findPassengerById(listaPasajeros, tam, id) != -1)//lo encontró.
+			printf("Está seguro de que desea eliminar el pasajero? s/n: ");
+			fflush(stdin);
+			scanf("%c", &confirmacion);
+			while(confirmacion!='s' && confirmacion!='n')
 			{
-				printf("Está seguro de que desea eliminar la consulta? s/n: ");
-				fflush(stdin);
+				printf("Ingrese si o no: s/n: ");
 				scanf("%c", &confirmacion);
-				while(confirmacion!='s' && confirmacion!='n')
-				{
-					printf("Ingrese si o no: s/n: ");
-					fflush(stdin);
-					scanf("%c", &confirmacion);
-				}
-				if(confirmacion=='s')
-				{
-					listaPasajeros[i].isEmpty=1;
-					retorno=0;
-				}
+			}
+			if(confirmacion=='s')
+			{
+				listaPasajeros[index].isEmpty=1;
+				retorno=0;
 			}
 		}
+
 	}
 	return retorno;
 }
@@ -452,6 +448,8 @@ int BajaPasajero (Passenger listaPasajeros[], int tam)
 	int ID;
 	retorno = -1;
 
+
+	printPassengers(listaPasajeros, tam);
 	printf("Ingrese el ID del pasajero: ");
 	scanf("%d", &ID);
 
@@ -595,7 +593,7 @@ int MostrarOpcion3Listado (Passenger listaPasajeros[], int tam)
 	return retorno;
 }
 
-void Inicializar5Pasajeros(Passenger listaPasajeros[])
+void Inicializar5Pasajeros(Passenger listaPasajeros[], int* idMain)
 {
     int id[5]={1,2,3,4,5};
     char name[5][51]={"Marina", "German", "Octavio","Matias","Christian"};
@@ -617,6 +615,8 @@ void Inicializar5Pasajeros(Passenger listaPasajeros[])
         listaPasajeros[i].statusFlight = statusFlight[i];
         listaPasajeros[i].isEmpty = isEmpty[i];
     }
+
+    *idMain = 6;
 
     printf("\nEl alta forzada se realizó con éxito :)\n\n");
 }

@@ -47,7 +47,7 @@ int initPassengers(Passenger listaPasajeros[], int tam);
 /// @brief Se encarga de crear una variable de tipo Passenger y pedir los datos para rellenarla con los mismos.
 ///
 /// @return La funcion devuelve la variable de tipo Passenger con los datos cargados.
-Passenger CargarUnPasajero();
+Passenger PedirDatosPasajero();
 
 /// @fn int addPassenger(Passenger[], int)
 /// @brief La funcion encuentra un espacio libre en el array de pasajeros en el cual cargar uno de ellos con sus datos completos.
@@ -57,7 +57,7 @@ Passenger CargarUnPasajero();
 /// @return La función devuelve 0 si la carga en el array se realizó con éxito o -1 caso contrario.
 /// (ACLARACIÓN: Al utilizar una funcion que encuentra un espacio libre y devuelve dicha posicion, me hubiese gustado utilizar este valor de retorno para informar
 /// en qué posición se realizó la carga, pero no estaba seguro si hacerlo ya que en la consigna la documentacion de la funcion decia que debía devolver 0 o -1)
-int addPassenger(Passenger listaPasajeros[], int tam);
+int addPassenger(Passenger listaPasajeros[], int tam, int* id);
 
 /// @fn int findPassengerById(Passenger[], int, int)
 /// @brief Encuenta un pasajero en el array de pasajeros utilizando como parametros de busqueda su id
@@ -196,7 +196,8 @@ int MostrarOpcion3Listado (Passenger listaPasajeros[], int tam);
 /// @brief La funcion realiza un alta forzada con los datos de 5 pasajeros.
 ///
 /// @param listaPasajeros
-void Inicializar5Pasajeros(Passenger listaPasajeros[]);
+void Inicializar5Pasajeros(Passenger listaPasajeros[], int* id);
+
 
 
 

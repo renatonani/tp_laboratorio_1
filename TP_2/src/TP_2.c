@@ -25,8 +25,9 @@ int main(void)
 	int confirmacionModificar;
 	int confirmacionBaja;
 	int opcionListado;
-	int confirmacionListado1;
-	int confirmacionListado3;
+	int confirmacionListado;
+	int id = 1;
+	int banderaCargaForzada = 0;
 
 	Passenger listaPasajeros[TAM];
 	iniciarPasajeros = initPassengers(listaPasajeros, TAM);
@@ -55,7 +56,8 @@ int main(void)
 		switch(opcion)
 		{
 			case 1:
-				confirmacionAlta = addPassenger(listaPasajeros, TAM);
+				confirmacionAlta = addPassenger(listaPasajeros, TAM, &id);
+
 				if(confirmacionAlta == 0)
 				{
 					printf("La carga se realizó con éxito.\n");
@@ -117,8 +119,8 @@ int main(void)
 					{
 						case 1:
 
-							confirmacionListado1 = MostrarPasajerosOrdenadosApellido(listaPasajeros, TAM);
-							if(confirmacionListado1!=0)
+							confirmacionListado = MostrarPasajerosOrdenadosApellido(listaPasajeros, TAM);
+							if(confirmacionListado!=0)
 							{
 								printf("Ocurrió un error al realizar el listado\n");
 							}
@@ -129,8 +131,8 @@ int main(void)
 							break;
 
 						case 3:
-							confirmacionListado3 = MostrarOpcion3Listado(listaPasajeros, TAM);
-							if(confirmacionListado3!=0)
+							confirmacionListado = MostrarOpcion3Listado(listaPasajeros, TAM);
+							if(confirmacionListado!=0)
 							{
 								printf("Ocurrió un error al realizar el listado\n");
 							}
@@ -157,8 +159,17 @@ int main(void)
 				break;
 
 			case 5:
-				Inicializar5Pasajeros(listaPasajeros);
+				if(banderaCargaForzada == 0)
+				{
+				Inicializar5Pasajeros(listaPasajeros, &id);
 				confirmacionAlta=0;
+				banderaCargaForzada = 1;
+				}
+				else
+				{
+					printf("Ya se realizó la carga forzada.\n");
+				}
+
 				break;
 
 			case 6:
@@ -166,7 +177,8 @@ int main(void)
 				break;
 
 			default:
-			printf("Introduzca una opcion valida\n");
+			printf("Introduzca una opcion válida\n");
+			break;
 
 		}
 	}while(opcion != 6);
